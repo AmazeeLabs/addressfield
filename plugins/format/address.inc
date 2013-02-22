@@ -58,7 +58,6 @@ function addressfield_format_address_generate(&$format, $address, $context = arr
     '#title' => t('City'),
     '#size' => 30,
     '#required' => TRUE,
-    '#prefix' => ' ',
     '#attributes' => array('class' => array('locality')),
   );
   $format['country'] = array(

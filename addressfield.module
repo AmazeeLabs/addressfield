@@ -401,6 +401,22 @@ function addressfield_field_widget_settings_form($field, $instance) {
 }
 
 /**
+ * Impements hook_field_presave().
+ */
+function addressfield_field_presave($entity_type, $entity, $field, $instance, $langcode, &$items) {
+  if ($field['type'] == 'addressfield') {
+    // Split the locality name by comma, in case it used the google geocode
+    // autocomplete feature.
+    foreach ($items as $delta => $item) {
+      if (isset($item['locality'])) {
+        $words = explode(',', $item['locality']);
+        $items[$delta]['locality'] = $words[0];
+      }
+    }
+  }
+}
+
+/**
  * Implements hook_field_widget_form()
  */
 function addressfield_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
